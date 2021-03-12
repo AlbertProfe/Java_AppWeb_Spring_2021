@@ -15,7 +15,7 @@ public class Loop {
 		    number++;
 		}
 
-		// now i am working in newcode branch
+		// now i am working in newcode branch and this is second commit
 		
 		
 	}
