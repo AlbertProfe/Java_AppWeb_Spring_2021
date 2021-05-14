@@ -1,4 +1,4 @@
-package com.example.example3;
+package com.example.example4;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,20 @@ public class BookRestController {
 	@Autowired
 	BookRepository bookRepository;
 
+	@Autowired
+	AuthorRepository authorRepository;
+
 	@GetMapping("/allBooks")
 	public Iterable<Book> findAll() {
 
 		return bookRepository.findAll();
 	}
+
+	/*
+	 * @GetMapping("/author/{id}/books") public Page<Book>
+	 * getAllBooksByAuthorId(@PathVariable(value = "id") Long id, Pageable pageable)
+	 * { return bookRepository.findByAuthorId(id, pageable); }
+	 */
 
 	@GetMapping("/getBook/{id}")
 	public Book findByTitle(@PathVariable Long id) {

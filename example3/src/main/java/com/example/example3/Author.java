@@ -57,10 +57,7 @@ public class Author {
 		book.setAuthor(this);
 	}
 	
-	@Override
-	public String toString() {
-		return "Author [id=" + id + ", name=" + name + ", country=" + country + "]";
-	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -79,7 +76,10 @@ public class Author {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+	@Override
+	public String toString() {
+		return "Author [id=" + id + ", name=" + name + ", country=" + country + "]";
+	}
 	
 
 }
