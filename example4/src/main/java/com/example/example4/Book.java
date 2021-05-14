@@ -27,8 +27,9 @@ public class Book extends AuditLibrary {
 	private String ISBN;
 	private int pages;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "AUTHOR_ID", nullable = false)
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AUTHOR_ID")
 	@OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
 	private Author author;

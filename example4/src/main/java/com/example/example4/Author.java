@@ -17,6 +17,9 @@ public class Author extends AuditLibrary {
 	private Long id;
 	private String name;
 	private String country;
+	
+	
+	//there is no field: books (arrayList)
 
 	public Author() {
 	}

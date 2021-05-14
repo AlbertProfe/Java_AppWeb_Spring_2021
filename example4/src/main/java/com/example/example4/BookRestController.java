@@ -48,10 +48,10 @@ public class BookRestController {
 	}
 
 	@PostMapping(path = "/addBook", consumes = "application/json")
-	public void insertBook(@RequestBody Book book) {
+	public Book insertBook(@RequestBody Book book) {
 
 		System.out.println(book);
-		bookRepository.save(book);
+		return bookRepository.save(book);
 	}
 
 	@DeleteMapping("/deleteBook/{id}")
