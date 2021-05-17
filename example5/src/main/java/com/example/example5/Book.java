@@ -2,8 +2,8 @@ package com.example.example5;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -25,16 +24,29 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Book extends AuditLibrary {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column
 	private String title;
+	@Column
 	private String ISBN;
+	@Column
 	private int pages;
-
+	
+	// The side which doesn't have the mappedBy attribute is the owner: 
+	//books is the owner and authors is inverse side
+	//  Besides, this owner has JOINTABLE
+	// so, books is the owner: it makes the tough job,
+	// that is, create the Author_Book auxiliary table, assign table
+	// auxiliary-assign table: foreign keys from books and authors
+	// owner is book so joinColumns is idBook
+	// inverse is auhtor so inverseJoinColumn is idAuthor
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "Author_Book", joinColumns = { @JoinColumn(name = "idBook") }, inverseJoinColumns = {
-			@JoinColumn(name = "idAuthor") })
+	@JoinTable(	name = "Author_Book",
+				joinColumns = { @JoinColumn(name = "idBook") },
+				inverseJoinColumns = {@JoinColumn(name = "idAuthor") })
 	private List<Author> authors = new ArrayList<Author>();
 
 	public Book() {
