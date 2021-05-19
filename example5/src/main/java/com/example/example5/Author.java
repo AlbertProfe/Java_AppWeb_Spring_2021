@@ -31,7 +31,9 @@ public class Author extends AuditLibrary {
 	// The side which doesn't have the mappedBy attribute is the owner:
 	// books is the owner and authors is inverse side
 	// all these in JAVA thanks to List<Book>
-	@ManyToMany(mappedBy = "authors", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "authors",
+			cascade = CascadeType.PERSIST,
+			fetch = FetchType.EAGER)
 	private List<Book> books = new ArrayList<Book>();
 
 	public Author() {

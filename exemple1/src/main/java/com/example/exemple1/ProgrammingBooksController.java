@@ -14,9 +14,12 @@ public class ProgrammingBooksController {
 		//controller gets a request from path-uri-url  "www.jaumevilados.com/ .../
 		//" .... /programming/javaCode/ ..... to java.html
 		// make some stuff
-			
-		return "javaResponse";			
+		
+		
+		return "javaResponse";
+				
 	}
+	
 	
 	@RequestMapping("/jsCode")
 	public String jsCode() {

@@ -17,12 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/webapi")
 public class AuthorRestController {
 
 	@Autowired
 	AuthorRepository authorRepository;
+	
+	@PostMapping(path = "/addAuthor", consumes = "application/json")
+	public Author insertAuthor(@Validated @RequestBody Author author) {
+		return authorRepository.save(author);
+
+	}
 
 	@GetMapping("/allAuthors")
 	public Page<Author> listAuthors(Pageable pageable) {
@@ -41,11 +48,6 @@ public class AuthorRestController {
 
 	}
 
-	@PostMapping(path = "/addAuthor", consumes = "application/json")
-	public Author insertAuthor(@Validated @RequestBody Author author) {
-		return authorRepository.save(author);
-
-	}
 
 	@DeleteMapping("/deleteAuthor/{id}")
 	public ResponseEntity<Author> deleteAuthorById(@PathVariable Long id) {
@@ -59,14 +61,21 @@ public class AuthorRestController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	
 	@PutMapping("/updateAuthor/{id}")
-	public Author upAuthor(@RequestBody Author author, @PathVariable Long id) {
+	public Optional<Author> updateAuthor(@RequestBody Author author, @PathVariable Long id) {
 		Optional<Author> authorById = authorRepository.findById(id);
 
 		if (authorById.isPresent()) {
-			authorRepository.deleteById(id);
-		}
-		return authorRepository.save(author);
 
+			authorById.get().setName(author.getName());
+			authorById.get().setCountry(author.getCountry());
+
+			authorRepository.save(authorById.get());
+			return authorById;
+		} else {
+		
+		return authorById;}
 	}
+
 }

@@ -6,9 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <body>
-
-<div class="w3-panel w3-padding-32">
-<h1>Spring Boot Books Rest Template Example</h1>
+<h1>Spring boot books exemple1 Client</h1>
 <h3>table of static books</h3>
 			
 		<table class="w3-table-all w3-hoverable" >
@@ -23,19 +21,16 @@
 				
 				
 				<td> <a th:href ="@{deleteBook(titleFromView=${book.title})}"
-				class="w3-button w3-red">  Delete this book </a> </td>
+				class="btn btn-primary">  Delete this book </a> </td>
 				
-				<td> <a th:href ="@{updateBookForm(titleFromView=${book.title})}"
-				class="w3-button w3-grey">  Update this book </a> </td>
 				
 			</tr>
 		</table>
 
 <p>
-
- <a th:href="@{/books/newBook}" class="w3-button w3-black">Add new book</a>
-</p>
-</div>			
+ <a th:href="@{/books/newBook}">Add new book</a>
+</p>			
 
 </html>
+
 
