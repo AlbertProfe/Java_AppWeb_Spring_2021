@@ -2,7 +2,6 @@ package example8;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -11,41 +10,53 @@ import com.mongodb.client.MongoDatabase;
 public class TestMongo {
 
 	public static void main(String[] args) {
-		
-		MongoClientURI connectionString = new MongoClientURI("mongodb+srv://viladoms:1234@clustertest.0h8fd.mongodb.net/test");
-		
-		MongoClient mongoClient = new MongoClient (connectionString);
-		
+
+		// first we create the string connection to connect our maven project
+		// to the cloud mongo db with
+		// user and password generated at cloud and
+		// remember to allow your IP
+		MongoClientURI connectionString = new MongoClientURI(
+				"mongodb+srv://viladoms:1234@clustertest.0h8fd.mongodb.net/test");
+
+		// mongoClient object to handle requests and operations
+		MongoClient mongoClient = new MongoClient(connectionString);
+
+		// from mongoClient NOW so far we can work, for exemple get
+		// the "city" db with their collections
 		MongoDatabase db = mongoClient.getDatabase("city");
-		
+
+		// from db city we get authors collection of documents (each document is a
+		// bson-author)
 		MongoCollection<Document> collectionDocs = db.getCollection("authors");
-		
-		for (Document docToPrint :  collectionDocs.find()) {
-		
-			System.out.println(docToPrint.toJson());
-		}
-		
-		
-		//Create a new document
-		
+
+		// just to check what is there ..
+		toPrint(collectionDocs);
+
+		// Create a new document, first the id
 		Document author = new Document("_id", new ObjectId());
-		
-		author.append("name", "Josep").append("surname" ,"Pla").append("age", 82);
-		
+		// and now we set the document with append
+		author.append("name", "Josep").append("surname", "Pla").append("age", 82);
+		// after the creation of the bson we instert the doc within the collection
 		collectionDocs.insertOne(author);
-		
-		for (Document docToPrint :  collectionDocs.find()) {
-			
+
+		toPrint(collectionDocs);
+
+		// another document
+		Document author2 = new Document("_id", new ObjectId());
+		author2.append("name", "Primo").append("surname", "Levi").append("age", 62).append("country", "Italy");
+		collectionDocs.insertOne(author2);
+		toPrint(collectionDocs);
+
+		// mongoClient.close();
+
+	}
+
+	// just a static utility to print the collection
+	public static void toPrint(MongoCollection<Document> collectionDocs) {
+
+		for (Document docToPrint : collectionDocs.find()) {
 			System.out.println(docToPrint.toJson());
 		}
-		
-		Document author2 = new Document("_id", new ObjectId());
-		
-		author2.append("name", "Primo").append("surname" ,"Levi").append("age", 62).append("country", "Italy");
-		
-		collectionDocs.insertOne(author2);
-		
-		//mongoClient.close();
 
 	}
 
