@@ -1,6 +1,7 @@
 package example8;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -19,10 +20,32 @@ public class TestMongo {
 		
 		MongoCollection<Document> collectionDocs = db.getCollection("authors");
 		
-		for (Document docToPrint :  collectionDocs.find() )
+		for (Document docToPrint :  collectionDocs.find()) {
 		
 			System.out.println(docToPrint.toJson());
+		}
 		
+		
+		//Create a new document
+		
+		Document author = new Document("_id", new ObjectId());
+		
+		author.append("name", "Josep").append("surname" ,"Pla").append("age", 82);
+		
+		collectionDocs.insertOne(author);
+		
+		for (Document docToPrint :  collectionDocs.find()) {
+			
+			System.out.println(docToPrint.toJson());
+		}
+		
+		Document author2 = new Document("_id", new ObjectId());
+		
+		author2.append("name", "Primo").append("surname" ,"Levi").append("age", 62).append("country", "Italy");
+		
+		collectionDocs.insertOne(author2);
+		
+		//mongoClient.close();
 
 	}
 
