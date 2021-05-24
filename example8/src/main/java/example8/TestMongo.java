@@ -1,5 +1,8 @@
 package example8;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import com.mongodb.MongoClient;
@@ -30,27 +33,39 @@ public class TestMongo {
 		MongoCollection<Document> collectionDocs = db.getCollection("authors");
 
 		// just to check what is there ..
-		toPrint(collectionDocs);
+		//toPrint(collectionDocs);
 
 		// Create a new document, first the id
 		Document author = new Document("_id", new ObjectId());
 		// and now we set the document with append
 		author.append("name", "Josep").append("surname", "Pla").append("age", 82);
 		// after the creation of the bson we insert the doc within the collection
+		
+		List<Document> booksObjdectJosepPla = new ArrayList<Document>();
+		
+		
+		List<String> booksJosepPla = new ArrayList<String>();
+		booksJosepPla.add("Quaden gris");
+		booksJosepPla.add("Viatges");
+		
+		author.append("books",booksJosepPla);
+		
 		collectionDocs.insertOne(author);
 
 		toPrint(collectionDocs);
-
+		
+		
 		// another document
 		Document author2 = new Document("_id", new ObjectId());
-		author2.append("name", "Primo").append("surname", "Levi").append("age", 62).append("country", "Italy");
+		author2.append("name", "Primo").append("surname", "Levi").append("age", 62).append("country", "Italy").append("me lo invento", 234123);
 		collectionDocs.insertOne(author2);
 		toPrint(collectionDocs);
 		
 		//findOneAndDelete
 		collectionDocs.findOneAndDelete(author2);
 		
-		toPrint(collectionDocs);
+		
+		//toPrint(collectionDocs);
 
 		mongoClient.close();
 

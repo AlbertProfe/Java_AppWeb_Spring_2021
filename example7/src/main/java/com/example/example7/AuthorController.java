@@ -32,13 +32,13 @@ public class AuthorController {
 		return authorRepository.findAll();
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "getAuthor/{id}")
 	public Optional<Author> getOne(@PathVariable String id) {
 		return authorRepository.findById(id);
 	}
 
 	@PutMapping("/updateAuthor/{id}")
-	public Author upAuthor(@RequestBody Author author, @PathVariable String id) {
+	public Author updateAuthor(@RequestBody Author author, @PathVariable String id) {
 		Optional<Author> authorById = authorRepository.findById(id);
 
 		if (authorById.isPresent()) {
@@ -48,8 +48,7 @@ public class AuthorController {
 
 	}
 
-	@DeleteMapping(value = "/{id}")
-
+	@DeleteMapping(value = "deleteAuthor/{id}")
 	public ResponseEntity<Author> deleteAuthor(@PathVariable String id) {
 
 		Optional<Author> author = authorRepository.findById(id);
