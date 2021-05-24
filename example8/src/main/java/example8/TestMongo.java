@@ -46,8 +46,13 @@ public class TestMongo {
 		author2.append("name", "Primo").append("surname", "Levi").append("age", 62).append("country", "Italy");
 		collectionDocs.insertOne(author2);
 		toPrint(collectionDocs);
+		
+		//findOneAndDelete
+		collectionDocs.findOneAndDelete(author2);
+		
+		toPrint(collectionDocs);
 
-		// mongoClient.close();
+		mongoClient.close();
 
 	}
 
