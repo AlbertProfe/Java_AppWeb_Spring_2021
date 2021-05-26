@@ -17,13 +17,8 @@ public class Author {
 	private List<Book> books;
 	
 	
-	public Author(String name, String surname, int age, List<Book> books) {
+	public Author() {
 		super();
-	
-		this.name = name;
-		this.surname = surname;
-		this.age = age;
-		this.books = books;
 	}
 	
 	public String getId() {

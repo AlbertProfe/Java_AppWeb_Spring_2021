@@ -2,10 +2,14 @@ package com.example.example6;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "embededWrapper")
 public class EmbededWrapper {
 	
-	List<Book> books;
 	Author author;
+	List<Book> books;
+	
 	
 	
 	public List<Book> getBooks() {

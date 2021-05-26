@@ -21,7 +21,7 @@ public class AuthorBooksController {
 	@Autowired
 	private AuthorRepository authorRepository;
 
-	@PostMapping("/addAuthorBooks")
+	@PostMapping("/addAuthor")
 	public ResponseEntity<Author> addAuthorBooks(@RequestBody Author author) {
 
 		authorRepository.save(author);
@@ -64,22 +64,23 @@ public class AuthorBooksController {
 
 	}
 
-	/*
-	 * @PostMapping("/addAuthorBooks") public ResponseEntity<Author> addAuthorBooks
-	 * (@RequestBody EmbededWrapper embededWrapper) {
-	 * 
-	 * Author author = embededWrapper.getAuthor(); System.out.println(author);
-	 * 
-	 * for (Book bookembeded : embededWrapper.getBooks()) {
-	 * 
-	 * Book book = new Book(); book = bookembeded; author.getBooks().add(book); }
-	 * 
-	 * 
-	 * 
-	 * System.out.println(author); authorRepository.save(author);
-	 * 
-	 * return new ResponseEntity<Author>(author, HttpStatus.CREATED); }
-	 * 
-	 */
+	@PostMapping("/addAuthorBooks")
+	public ResponseEntity<Author> addAuthorBooks(@RequestBody EmbededWrapper embededWrapper) {
+
+		Author author = embededWrapper.getAuthor();
+		System.out.println(author);
+
+		for (Book bookembeded : embededWrapper.getBooks()) {
+
+			Book book = new Book();
+			book = bookembeded;
+			author.getBooks().add(book);
+		}
+
+		System.out.println(author);
+		authorRepository.save(author);
+
+		return new ResponseEntity<Author>(author, HttpStatus.CREATED);
+	}
 
 }
