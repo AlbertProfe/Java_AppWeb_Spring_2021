@@ -22,15 +22,48 @@ public class AuthorBooksController {
 	private AuthorRepository authorRepository;
 
 	@PostMapping("/addAuthorBooks")
-	public ResponseEntity<Author> addAuthorBooks (@RequestBody Author author) {
-		
+	public ResponseEntity<Author> addAuthorBooks(@RequestBody Author author) {
+
 		authorRepository.save(author);
-		
+
 		return new ResponseEntity<Author>(author, HttpStatus.CREATED);
 	}
-	
-	
-	
+
+	@GetMapping
+	public Iterable<Author> getAll() {
+		return authorRepository.findAll();
+	}
+
+	@GetMapping(value = "getAuthor/{id}")
+	public Optional<Author> getOne(@PathVariable String id) {
+		return authorRepository.findById(id);
+	}
+
+	@PutMapping("/updateAuthor/{id}")
+	public Author updateAuthor(@RequestBody Author author, @PathVariable String id) {
+		Optional<Author> authorById = authorRepository.findById(id);
+
+		if (authorById.isPresent()) {
+			authorRepository.deleteById(id);
+		}
+		return authorRepository.save(author);
+
+	}
+
+	@DeleteMapping(value = "deleteAuthor/{id}")
+	public ResponseEntity<Author> deleteAuthor(@PathVariable String id) {
+
+		Optional<Author> author = authorRepository.findById(id);
+		if (author.isPresent()) {
+			authorRepository.deleteById(id); // return
+			ResponseEntity.ok().build();
+			return new ResponseEntity<Author>(HttpStatus.OK);
+		} // return
+		ResponseEntity.notFound().build();
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+	}
+
 	/*
 	 * @PostMapping("/addAuthorBooks") public ResponseEntity<Author> addAuthorBooks
 	 * (@RequestBody EmbededWrapper embededWrapper) {
@@ -48,35 +81,5 @@ public class AuthorBooksController {
 	 * return new ResponseEntity<Author>(author, HttpStatus.CREATED); }
 	 * 
 	 */
-	  
-	
 
-	/*
-	 * @GetMapping public Iterable<Author> getAll() { return
-	 * authorRepository.findAll(); }
-	 * 
-	 * @GetMapping(value = "getAuthor/{id}") public Optional<Author>
-	 * getOne(@PathVariable String id) { return authorRepository.findById(id); }
-	 * 
-	 * @PutMapping("/updateAuthor/{id}") public Author updateAuthor(@RequestBody
-	 * Author author, @PathVariable String id) { Optional<Author> authorById =
-	 * authorRepository.findById(id);
-	 * 
-	 * if (authorById.isPresent()) { authorRepository.deleteById(id); } return
-	 * authorRepository.save(author);
-	 * 
-	 * }
-	 * 
-	 * @DeleteMapping(value = "deleteAuthor/{id}") public ResponseEntity<Author>
-	 * deleteAuthor(@PathVariable String id) {
-	 * 
-	 * Optional<Author> author = authorRepository.findById(id); if
-	 * (author.isPresent()) { authorRepository.deleteById(id); // return
-	 * ResponseEntity.ok().build(); return new
-	 * ResponseEntity<Author>(HttpStatus.OK); } // return
-	 * ResponseEntity.notFound().build(); return new
-	 * ResponseEntity<>(HttpStatus.NOT_FOUND);
-	 * 
-	 * }
-	 */
 }
