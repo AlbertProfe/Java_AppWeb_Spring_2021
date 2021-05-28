@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Optional;
-
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +25,7 @@ public class BookImageController {
 
 	@PostMapping("/bookImage")
 	public BookImage addBookImage(@RequestParam String name, @RequestParam MultipartFile file) throws IOException {
+		
 		BookImage bookImage = new BookImage();
 		bookImage.setName(name);
 		bookImage.setImage(new Binary(file.getBytes()));
@@ -35,6 +35,8 @@ public class BookImageController {
 
 	@GetMapping("/getBookImageData")
 	public String getBookImageData(@RequestParam String id) {
+		
+		
 		Optional<BookImage> bookImage = bookImageRepository.findById(id);
 		Encoder encoder = Base64.getEncoder();
 
