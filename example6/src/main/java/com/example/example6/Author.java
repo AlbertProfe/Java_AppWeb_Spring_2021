@@ -3,6 +3,7 @@ package com.example.example6;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "authors")
@@ -13,7 +14,6 @@ public class Author {
 	private String name;
 	private String surname;
 	private int age;
-	
 	private List<Book> books;
 	
 	
