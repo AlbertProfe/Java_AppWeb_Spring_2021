@@ -1,24 +1,28 @@
 package com.example.example6;
 
 import org.springframework.data.annotation.Id;
-
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Document(collection = "books")
 public class Book {
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
-	  private String id;
-	@Getter @Setter private String title;
-	@Getter @Setter private String publisher;
-	@Getter @Setter private int pages;
-	
+	private String id;
+	@Getter
+	@Setter
+	private String title;
+	@Getter
+	@Setter
+	private String publisher;
+	@Getter
+	@Setter
+	private int pages;
 
 	public Book() {
-		
+
 	}
 
 	/*
@@ -33,8 +37,5 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", publisher=" + publisher + ", pages=" + pages + "]";
 	}
-	
-	
-	
 
 }

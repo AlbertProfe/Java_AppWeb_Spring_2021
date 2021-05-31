@@ -9,9 +9,7 @@ public class EmbededWrapper {
 	
 	Author author;
 	List<Book> books;
-	
-	
-	
+
 	public List<Book> getBooks() {
 		return books;
 	}

@@ -3,7 +3,10 @@ package com.example.example9;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableJpaAuditing
 @SpringBootApplication
@@ -11,5 +14,15 @@ public class Example9Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Example9Application.class, args);
+	}
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedHeaders("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+			}
+		};
 	}
 }

@@ -1,6 +1,9 @@
 package com.example.example6;
 
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,7 +24,7 @@ public class AuthorBooksController {
 	private AuthorRepository authorRepository;
 
 	@PostMapping("/addAuthor")
-	public ResponseEntity<Author> addAuthorBooks(@RequestBody Author author) {
+	public ResponseEntity<Author> addAuthorBooks(@Valid @RequestBody Author author) {
 
 		authorRepository.save(author);
 
@@ -65,7 +67,7 @@ public class AuthorBooksController {
 	}
 
 	@PostMapping("/addAuthorBooks")
-	public ResponseEntity<Author> addAuthorBooks(@RequestBody EmbededWrapper embededWrapper) {
+	public ResponseEntity<Author> addAuthorBooks(@Valid @RequestBody EmbededWrapper embededWrapper) {
 
 		Author author = embededWrapper.getAuthor();
 		System.out.println(author);

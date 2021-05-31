@@ -2,6 +2,7 @@ package com.example.example9;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-
+@RequestMapping("/webapi")
+//@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true", methods = {})
 public class BookRestController {
 
 	@Autowired
@@ -24,10 +27,23 @@ public class BookRestController {
 		return repository.findAll();
 	}
 
-	@GetMapping("book/{title}")
+	@GetMapping("book/{id}")
+	public Book findById(@PathVariable Long id) {
+
+		Optional<Book> bookById = repository.findById(id);
+
+		if (bookById.isPresent()) {
+
+			return bookById.get();
+		}
+
+		return null;
+	}
+
+	@GetMapping("bookbytitle/{title}")
 	public Book findByTitle(@PathVariable String title) {
 
-		Optional<Book> bookByTitle = repository.findById(title);
+		Optional<Book> bookByTitle = repository.findByTitle(title);
 
 		if (bookByTitle.isPresent()) {
 
@@ -38,30 +54,42 @@ public class BookRestController {
 	}
 
 	@PostMapping(path = "addBook", consumes = "application/json")
-	public void insertBook(@RequestBody Book book) {
+	public void createBook(@RequestBody Book book) {
 
 		System.out.println(book);
 		repository.save(book);
 	}
 
-	@DeleteMapping("books/{title}")
-	public void deleteBook(@PathVariable String title) {
+	@DeleteMapping("deleteBook/{id}")
+	public void removeBook(@PathVariable Long id) {
 
-		repository.deleteById(title);
+		repository.deleteById(id);
 
 	}
 
-	@PutMapping("books/{title}")
-	public void upadateBook(@RequestBody Book book, @PathVariable String title) {
+	@DeleteMapping("deleteBooks")
+	public void removeBooks() {
 
-		Optional<Book> bookByTitle = repository.findById(title);
+		repository.deleteAll();
 
-		if (bookByTitle.isPresent()) {
+	}
 
-			bookByTitle.get().setPages(book.getPages());
-			bookByTitle.get().setISBN(book.getISBN());
+	@PutMapping("upadteBook/{id}")
+	public void modifyBook(@RequestBody Book book, @PathVariable Long id) {
 
-			repository.save(bookByTitle.get());
+		Optional<Book> bookById = repository.findById(id);
+
+		if (bookById.isPresent()) {
+
+			bookById.get().setPages(book.getPages());
+			bookById.get().setISBN(book.getISBN());
+			bookById.get().setTitle(book.getTitle());
+			bookById.get().setPublisher(book.getPublisher());
+			bookById.get().setGenre(book.getGenre());
+			bookById.get().setPublished(book.isPublished());
+			
+
+			repository.save(bookById.get());
 
 		}
 

@@ -2,8 +2,12 @@ package com.example.example6;
 
 import java.util.List;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "authors")
@@ -11,8 +15,14 @@ public class Author {
 
 	@Id
 	private String id;
+	@NotNull
+	@Size(min=2, message="Name should be at least 5 characters")
 	private String name;
+	@NotNull
+	@Size(min=2, message="Name should be at least 3 characters")
 	private String surname;
+	@Min(value=18, message="Age should be equal or greater than 18")  
+    @Max(value=45, message="Age should be equal or less than 150")  
 	private int age;
 	private List<Book> books;
 	
