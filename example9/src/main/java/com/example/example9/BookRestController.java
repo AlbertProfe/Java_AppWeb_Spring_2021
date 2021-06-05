@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/webapi")
-//@CrossOrigin(origins = "http://localhost:8081")
-@CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true", methods = {})
+
+//@CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true", methods = {})
 public class BookRestController {
 
 	@Autowired
 	BookRepository repository;
-
+	@CrossOrigin(origins = "http://localhost:8081")
 	@GetMapping("books")
 	public Iterable<Book> findAll() {
 

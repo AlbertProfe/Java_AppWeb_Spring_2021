@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Book to update</title>
+</head>
+<body>
+<div class="w3-panel w3-padding-32">
+
+<h1>Spring Boot Books Example</h1>
+<h3>update existing Book</h3>
+	<form action="#"
+		th:action="@{/books/replaceBook/{titleFromView}(titleFromView=${bookfromController.title})}"
+		th:object="${bookfromController}" method="post">
+
+		<p>
+			<label class="w3-text-gray"><b>Title</b></label> 
+			<input
+				class="w3-input w3-border w3-light-grey" name="title" type="text"
+				th:field="*{title}" readonly>
+		</p>
+
+		<p>
+			<label class="w3-text-gray"><b>ISBN</b></label> <input
+				class="w3-input w3-border w3-light-grey" name="ISBN" type="text"
+				th:field="*{ISBN}">
+		</p>
+
+		<p>
+			<label class="w3-text-gray"><b>Pages</b></label> <input
+				class="w3-input w3-border w3-light-grey" name="pages" type="text"
+				th:field="*{pages}">
+		</p>
+
+		<p>
+			<label class="w3-text-gray"><b>Year</b></label> <input
+				class="w3-input w3-border w3-light-grey" name="year" type="text"
+				th:field="*{year}">
+		</p>
+
+		<p>
+			<label class="w3-text-gray"><b>Author</b></label> <input
+				class="w3-input w3-border w3-light-grey" name="author" type="text"
+				th:field="*{author}">
+		</p>
+
+		<button class="w3-btn w3-blue">Update book to our array
+			books</button>
+
+	</form>
+</div>
+
+
+
+</body>
+</html>

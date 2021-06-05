@@ -21,7 +21,7 @@ public class Example9Application {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedHeaders("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+				registry.addMapping("/**").allowedOrigins("http://localhost:8081");
 			}
 		};
 	}
